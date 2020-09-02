@@ -2,58 +2,84 @@ import React, { useState } from 'react'
 import './App.css'
 
 function App() {
-  const [word, setWord] = useState('hangman')
+  const [word, setWord] = useState('hangman'.toUpperCase())
   const [inputLetter, setInputLetter] = useState('')
-  const [renderCorrectGuess, setRenderCorrectGuess] = useState(false)
+  // const [renderCorrectGuess, setRenderCorrectGuess] = useState(false)
   const [arrayOfCorrectGuesses, setArrayOfCorrectGuesses] = useState([])
   const [arrayOfWrongGuesses, setArrayOfWrongtGuesses] = useState([])
+  const [gameWon, setGameWon] = useState(false)
   const arrWord = word.split('')
   // console.log(arrWord)
   // console.log(inputLetter)
 
   const guessHandler = () => {
+    setInputLetter('')
     let correctGuess = arrWord.includes(inputLetter)
 
-    arrWord.forEach((element) => {
-      inputLetter === element && setRenderCorrectGuess(true)
-      // console.log(element.toUpperCase())
-    })
+    // arrWord.forEach((element) => {
+    //   inputLetter === element && setRenderCorrectGuess(true)
+    //   console.log(element.toUpperCase())
+    // })
 
-    correctGuess
-      ? setArrayOfCorrectGuesses((correctGuessesList) => [
-          ...correctGuessesList,
-          inputLetter,
-        ])
-      : setArrayOfWrongtGuesses((wrongGuessesList) => [
-          ...wrongGuessesList,
-          inputLetter,
-        ])
+    // correctGuess
+    //   ? setArrayOfCorrectGuesses((correctGuessesList) => [
+    //       ...correctGuessesList,
+    //       inputLetter,
+    //     ])
+    //   : setArrayOfWrongtGuesses((wrongGuessesList) => [
+    //       ...wrongGuessesList,
+    //       inputLetter,
+    //     ])
+    if (arrayOfCorrectGuesses.includes(inputLetter)) {
+      alert('Letter already guessed')
+    } else if (correctGuess) {
+      setArrayOfCorrectGuesses((correctGuessesList) => [
+        ...correctGuessesList,
+        inputLetter,
+      ])
+    } else if (inputLetter === '') {
+      alert('please enter a letter')
+    } else if (!isNaN(inputLetter)) {
+      alert('no numbers here')
+    } else if (arrayOfWrongGuesses.includes(inputLetter)) {
+      alert('Letter already guessed')
+    } else {
+      setArrayOfWrongtGuesses((wrongGuessesList) => [
+        ...wrongGuessesList,
+        inputLetter,
+      ])
+    }
   }
 
+  let winCheckUniqueLetters = arrWord
+    .filter((letter, i, arr) => arr.indexOf(letter) === i)
+    .sort()
+    .join('')
+
+  let winCheckCorrectGuesses = arrayOfCorrectGuesses
+    .filter((letter, i, arr) => arr.indexOf(letter) === i)
+    .sort()
+    .join('')
+
+  winCheckUniqueLetters === winCheckCorrectGuesses && alert('game won')
+  // console.log(winCheckUniqueLetters)
+  // console.log(winCheckCorrectGuesses)
+
   arrayOfWrongGuesses.length === 6 && alert('game over')
-  console.log(arrayOfCorrectGuesses)
-  // console.log(arrayOfWrongGuesses)
-  console.log(renderCorrectGuess)
+
   return (
     <div className='App container d-flex flex-column align-items-center'>
-      {word}
+      {word.toUpperCase()}
       <div className='d-flex'>
         {arrWord.map((letter, i) => (
           <div
             className='p-3 mx-1 border rounded-sm d-flex align-items-center justify-content-center letterbox'
             key={i}
           >
-            {renderCorrectGuess && (
-              <h2
-                className='h2 d-inline-block'
-                // style={
-                //   renderCorrectGuess
-                //     ? { backgroundColor: 'blue' }
-                //     : { backgroundColor: 'none' }
-                // }
-              >
-                {letter}
-              </h2>
+            {arrayOfCorrectGuesses.includes(letter) ? (
+              <div className='h2 d-inline-block'>{letter}</div>
+            ) : (
+              <div className='h2 d-inline-block'></div>
             )}
           </div>
         ))}
@@ -61,11 +87,13 @@ function App() {
       <div>{arrayOfWrongGuesses}</div>
       <div>
         <input
-          required
+          // required
           type='text'
           size='1'
           maxLength='1'
-          onInput={(event) => setInputLetter(event.target.value)}
+          placeholder=''
+          value={inputLetter}
+          onChange={(event) => setInputLetter(event.target.value.toUpperCase())}
         />
         <button onClick={guessHandler}>GUESS</button>
       </div>
