@@ -12,7 +12,8 @@ function App() {
   // console.log(arrWord)
   // console.log(inputLetter)
 
-  const guessHandler = () => {
+  const guessHandler = (e) => {
+    e.preventDefault()
     setInputLetter('')
     let correctGuess = arrWord.includes(inputLetter)
 
@@ -85,18 +86,18 @@ function App() {
         ))}
       </div>
       <div>{arrayOfWrongGuesses}</div>
-      <div>
+      <form>
         <input
-          // required
-          type='text'
           size='1'
           maxLength='1'
           placeholder=''
           value={inputLetter}
           onChange={(event) => setInputLetter(event.target.value.toUpperCase())}
         />
-        <button onClick={guessHandler}>GUESS</button>
-      </div>
+        <button type='submit' onClick={guessHandler}>
+          GUESS
+        </button>
+      </form>
     </div>
   )
 }
