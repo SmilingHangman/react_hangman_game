@@ -3,53 +3,38 @@ import './App.css'
 
 function App() {
   const [word, setWord] = useState('hangman'.toUpperCase())
+  const arrWord = word.split('')
+
   const [inputLetter, setInputLetter] = useState('')
-  // const [renderCorrectGuess, setRenderCorrectGuess] = useState(false)
   const [arrayOfCorrectGuesses, setArrayOfCorrectGuesses] = useState([])
   const [arrayOfWrongGuesses, setArrayOfWrongtGuesses] = useState([])
   const [gameWon, setGameWon] = useState(false)
-  const arrWord = word.split('')
-  // console.log(arrWord)
-  // console.log(inputLetter)
 
   const guessHandler = (e) => {
     e.preventDefault()
     setInputLetter('')
-    let correctGuess = arrWord.includes(inputLetter)
+    const guess = inputLetter.toUpperCase()
+    const correctGuess = arrWord.includes(guess)
 
-    // arrWord.forEach((element) => {
-    //   inputLetter === element && setRenderCorrectGuess(true)
-    //   console.log(element.toUpperCase())
-    // })
-
-    // correctGuess
-    //   ? setArrayOfCorrectGuesses((correctGuessesList) => [
-    //       ...correctGuessesList,
-    //       inputLetter,
-    //     ])
-    //   : setArrayOfWrongtGuesses((wrongGuessesList) => [
-    //       ...wrongGuessesList,
-    //       inputLetter,
-    //     ])
-    if (arrayOfCorrectGuesses.includes(inputLetter)) {
+    if (arrayOfCorrectGuesses.includes(guess)) {
       alert('Letter already guessed')
     } else if (correctGuess) {
       setArrayOfCorrectGuesses((correctGuessesList) => [
         ...correctGuessesList,
-        inputLetter,
+        guess,
       ])
-    } else if (inputLetter === '') {
+    } else if (guess === '') {
       alert('please enter a letter')
-    } else if (inputLetter.match(/[^\w\s]/gi)) {
+    } else if (guess.match(/[^\w\s]/gi)) {
       alert('only letters from latin alphabet please')
-    } else if (!isNaN(inputLetter)) {
+    } else if (!isNaN(guess)) {
       alert('no numbers here')
-    } else if (arrayOfWrongGuesses.includes(inputLetter)) {
+    } else if (arrayOfWrongGuesses.includes(guess)) {
       alert('Letter already guessed')
     } else {
       setArrayOfWrongtGuesses((wrongGuessesList) => [
         ...wrongGuessesList,
-        inputLetter,
+        guess,
       ])
     }
   }
@@ -65,9 +50,6 @@ function App() {
     .join('')
 
   winCheckUniqueLetters === winCheckCorrectGuesses && alert('game won')
-  // console.log(winCheckUniqueLetters)
-  // console.log(winCheckCorrectGuesses)
-
   arrayOfWrongGuesses.length === 6 && alert('game over')
 
   return (
@@ -80,9 +62,9 @@ function App() {
             key={i}
           >
             {arrayOfCorrectGuesses.includes(letter) ? (
-              <div className='h2 d-inline-block'>{letter}</div>
+              <div className='h2 mb-0 d-inline-block'>{letter}</div>
             ) : (
-              <div className='h2 d-inline-block'></div>
+              <div className='h2 mb-0 d-inline-block'>_</div>
             )}
           </div>
         ))}
@@ -94,7 +76,7 @@ function App() {
           maxLength='1'
           placeholder=''
           value={inputLetter}
-          onChange={(event) => setInputLetter(event.target.value.toUpperCase())}
+          onChange={(event) => setInputLetter(event.target.value)}
         />
         <button type='submit' onClick={guessHandler}>
           GUESS
