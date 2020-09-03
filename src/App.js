@@ -40,6 +40,8 @@ function App() {
       ])
     } else if (inputLetter === '') {
       alert('please enter a letter')
+    } else if (inputLetter.match(/[^\w\s]/gi)) {
+      alert('only letters from latin alphabet please')
     } else if (!isNaN(inputLetter)) {
       alert('no numbers here')
     } else if (arrayOfWrongGuesses.includes(inputLetter)) {
