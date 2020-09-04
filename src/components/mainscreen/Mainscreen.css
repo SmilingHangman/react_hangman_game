@@ -2,3 +2,81 @@
   width: 73px;
   height: 73px;
 }
+.wrong-guesses-list {
+  height: 60px;
+}
+.gallows {
+  height: 550px;
+  width: 400px;
+  background-image: url('../../assets/gallows.png');
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 50px -30px;
+}
+.faces-of-doom {
+  background-color: #ffffff;
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  position: relative;
+  top: 180px;
+  left: 280px;
+  transform: rotate(30deg);
+}
+.body-of-doom {
+  display: block;
+  background-color: #000000;
+  height: 127px;
+  width: 10px;
+  position: relative;
+  top: 177px;
+  left: 284px;
+  border-radius: 5px;
+}
+.left-arm-of-doom {
+  display: block;
+  background-color: #000000;
+  height: 90px;
+  width: 10px;
+  position: relative;
+  top: 50px;
+  left: 266px;
+  border-radius: 5px;
+  transform: rotate(20deg);
+}
+.right-arm-of-doom {
+  display: block;
+  background-color: #000000;
+  height: 90px;
+  width: 10px;
+  position: relative;
+  top: -40px;
+  left: 302px;
+  border-radius: 5px;
+  transform: rotate(-20deg);
+}
+.left-leg-of-doom {
+  display: block;
+  background-color: #000000;
+  height: 90px;
+  width: 10px;
+  position: relative;
+  top: -13px;
+  left: 267px;
+  border-radius: 5px;
+  transform: rotate(20deg);
+}
+.right-leg-of-doom {
+  display: block;
+  background-color: #000000;
+  height: 90px;
+  width: 10px;
+  position: relative;
+  top: -102px;
+  left: 302px;
+  border-radius: 5px;
+  transform: rotate(-20deg);
+}
+u {
+  font-size: 18px;
+}
