@@ -13,6 +13,12 @@ export const Mainscreen = (props) => {
   const [inputLetter, setInputLetter] = useState('')
   const [arrayOfCorrectGuesses, setArrayOfCorrectGuesses] = useState([])
   const [arrayOfWrongGuesses, setArrayOfWrongtGuesses] = useState([])
+
+  const [letterGuessed, setLetterGuessed] = useState(false)
+  const [enterLetter, setEnterLetter] = useState(false)
+  const [noSpecialChars, setNoSpecialChars] = useState(false)
+  const [noNumbers, setNoNumbers] = useState(false)
+
   const [neutralFace, setNeutralFace] = useState(false)
   const [sadFace, setSadFace] = useState(false)
   const [screamingFace, setScreamingFace] = useState(false)
@@ -24,6 +30,7 @@ export const Mainscreen = (props) => {
   const [renderRightArm, setRenderRightArm] = useState(false)
   const [renderLeftLeg, setRenderLeftLeg] = useState(false)
   const [renderRightLeg, setRenderRightLeg] = useState(false)
+
   const [gameWon, setGameWon] = useState(false)
 
   const arrWord = props.word.split('')
@@ -35,26 +42,33 @@ export const Mainscreen = (props) => {
     const correctGuess = arrWord.includes(guess)
 
     if (arrayOfCorrectGuesses.includes(guess)) {
-      alert('Letter already guessed')
+      setLetterGuessed(true)
     } else if (correctGuess) {
       setArrayOfCorrectGuesses((correctGuessesList) => [
         ...correctGuessesList,
         guess,
       ])
     } else if (guess === '') {
-      alert('please enter a letter')
+      setEnterLetter(true)
     } else if (guess.match(/[^\w\s]/gi)) {
-      alert('only letters from latin alphabet please')
+      setNoSpecialChars(true)
     } else if (!isNaN(guess)) {
-      alert('no numbers here')
+      setNoNumbers(true)
     } else if (arrayOfWrongGuesses.includes(guess)) {
-      alert('Letter already guessed')
+      setLetterGuessed(true)
     } else {
       setArrayOfWrongtGuesses((wrongGuessesList) => [
         ...wrongGuessesList,
         guess,
       ])
     }
+  }
+
+  const modalHandler = () => {
+    setLetterGuessed(false)
+    setEnterLetter(false)
+    setNoSpecialChars(false)
+    setNoNumbers(false)
   }
 
   useEffect(() => {
@@ -92,6 +106,27 @@ export const Mainscreen = (props) => {
 
   return (
     <div className={'container d-flex flex-column align-items-center'}>
+      {(letterGuessed || enterLetter || noSpecialChars || noNumbers) && (
+        <div className={'info-modal'}>
+          <div className={'info-box'}>
+            <div className={'information'}>
+              {letterGuessed && 'Letter already guessed'}
+              {enterLetter && 'Please enter a letter'}
+              {noSpecialChars &&
+                'No special characters and letters only from latin alphabet please'}
+              {noNumbers && 'No numbers here'}
+            </div>
+            <button
+              className={'btn btn-dark'}
+              onClick={modalHandler}
+              autoFocus={true}
+            >
+              OK
+            </button>
+          </div>
+        </div>
+      )}
+
       <div className={'gallows'}>
         {neutralFace && (
           <img src={neutralFaceImg} alt='' className={'faces-of-doom'} />
@@ -143,9 +178,9 @@ export const Mainscreen = (props) => {
           ))}
         </div>
       </div>
-      <form>
+      <form className={'d-flex align-items-center justify-content-center'}>
         <input
-          autoFocus
+          autoFocus={true}
           size='1'
           maxLength='1'
           placeholder=''
@@ -153,7 +188,11 @@ export const Mainscreen = (props) => {
           onChange={(event) => setInputLetter(event.target.value)}
           className={'mr-2 p-1 text-center'}
         />
-        <button type='submit' onClick={guessHandler} className={'py-1 px-2'}>
+        <button
+          type='submit'
+          onClick={guessHandler}
+          className={'btn btn-dark py-1 px-2'}
+        >
           GUESS
         </button>
       </form>

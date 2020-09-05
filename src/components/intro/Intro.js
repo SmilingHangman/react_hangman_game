@@ -14,7 +14,9 @@ export const Intro = (props) => {
       <img src={knot} alt='' className={'h4 mb-5'} />
       <h2 className={'h2'}>HANGMAN</h2>
       <p className={'p'}>A word guessing game</p>
-      <button onClick={props.startGame}>START GAME</button>
+      <button onClick={props.startGame} className={'btn btn-dark'}>
+        START GAME
+      </button>
     </div>
   )
 }

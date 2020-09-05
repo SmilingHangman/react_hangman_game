@@ -19,8 +19,8 @@ function App() {
 
   return (
     <div className='App container d-flex flex-column align-items-center'>
-      {gameStarted && <Intro startGame={startGameHandler} />}
-      {!gameStarted && <Mainscreen word={word} />}
+      {!gameStarted && <Intro startGame={startGameHandler} />}
+      {gameStarted && <Mainscreen word={word} />}
       {/* remember to change gameStarted ! */}
     </div>
   )
