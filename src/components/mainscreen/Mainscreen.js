@@ -9,7 +9,6 @@ import preDedFaceImg from '../../assets/faces/prededface.svg'
 import dedFaceImg from '../../assets/faces/dedface.svg'
 
 export const Mainscreen = (props) => {
-  // const [word, setWord] = useState('bbb'.toUpperCase())
   const [inputLetter, setInputLetter] = useState('')
   const [arrayOfCorrectGuesses, setArrayOfCorrectGuesses] = useState([])
   const [arrayOfWrongGuesses, setArrayOfWrongtGuesses] = useState([])
@@ -32,6 +31,7 @@ export const Mainscreen = (props) => {
   const [renderRightLeg, setRenderRightLeg] = useState(false)
 
   const [gameWon, setGameWon] = useState(false)
+  const [gameLost, setGameLost] = useState(false)
 
   const arrWord = props.word.split('')
 
@@ -71,6 +71,16 @@ export const Mainscreen = (props) => {
     setNoNumbers(false)
   }
 
+  let winCheckUniqueLetters = arrWord
+    .filter((letter, i, arr) => arr.indexOf(letter) === i)
+    .sort()
+    .join('')
+
+  let winCheckCorrectGuesses = arrayOfCorrectGuesses
+    .filter((letter, i, arr) => arr.indexOf(letter) === i)
+    .sort()
+    .join('')
+
   useEffect(() => {
     arrayOfWrongGuesses.length === 1 && setNeutralFace(true)
     arrayOfWrongGuesses.length === 2 && setRenderBody(true)
@@ -88,21 +98,19 @@ export const Mainscreen = (props) => {
     arrayOfWrongGuesses.length === 6 && setRenderRightLeg(true)
     arrayOfWrongGuesses.length === 6 && setDedFace(true)
     arrayOfWrongGuesses.length === 6 && setPreDedFace(false)
-  }, [arrayOfWrongGuesses.length])
+    winCheckUniqueLetters === winCheckCorrectGuesses && setGameWon(true)
+    arrayOfWrongGuesses.length === 6 && setGameLost(true)
+  }, [
+    arrayOfWrongGuesses.length,
+    winCheckUniqueLetters,
+    winCheckCorrectGuesses,
+    props.word,
+  ])
 
-  let winCheckUniqueLetters = arrWord
-    .filter((letter, i, arr) => arr.indexOf(letter) === i)
-    .sort()
-    .join('')
-
-  let winCheckCorrectGuesses = arrayOfCorrectGuesses
-    .filter((letter, i, arr) => arr.indexOf(letter) === i)
-    .sort()
-    .join('')
-
-  winCheckUniqueLetters === winCheckCorrectGuesses && alert('game won')
-  arrayOfWrongGuesses.length === 6 &&
-    alert(`game over. Word was "${props.word}"`)
+  // winCheckUniqueLetters === winCheckCorrectGuesses && setGameWon(true)
+  // alert('game won')
+  // arrayOfWrongGuesses.length === 6 &&
+  //   alert(`game over. Word was "${props.word}"`)
 
   return (
     <div className={'container d-flex flex-column align-items-center'}>
@@ -149,6 +157,10 @@ export const Mainscreen = (props) => {
         {renderRightLeg && <span className={'right-leg-of-doom'}></span>}
       </div>
       {/* {word.toUpperCase()} */}
+      <div className={'win-lose-message'}>
+        {gameWon && 'YOU WON!'}{' '}
+        {gameLost && `YOU DIED. The word was ${props.word}`}
+      </div>
       <div className='d-flex mb-4'>
         {arrWord.map((letter, i) => (
           <div
@@ -181,6 +193,14 @@ export const Mainscreen = (props) => {
       <form className={'d-flex align-items-center justify-content-center'}>
         <input
           autoFocus={true}
+          disabled={
+            letterGuessed ||
+            enterLetter ||
+            noSpecialChars ||
+            noNumbers ||
+            gameWon ||
+            gameLost
+          }
           size='1'
           maxLength='1'
           placeholder=''
@@ -188,13 +208,26 @@ export const Mainscreen = (props) => {
           onChange={(event) => setInputLetter(event.target.value)}
           className={'mr-2 p-1 text-center'}
         />
-        <button
-          type='submit'
-          onClick={guessHandler}
-          className={'btn btn-dark py-1 px-2'}
-        >
-          GUESS
-        </button>
+        {!(gameWon || gameLost) && (
+          <button
+            type='submit'
+            disabled={
+              letterGuessed || enterLetter || noSpecialChars || noNumbers
+            }
+            onClick={guessHandler}
+            className={'btn btn-dark py-1 px-2'}
+          >
+            GUESS
+          </button>
+        )}
+        {(gameWon || gameLost) && (
+          <button
+            onClick={props.restartGame}
+            className={'btn btn-dark py-1 px-2'}
+          >
+            PLAY AGAIN?
+          </button>
+        )}
       </form>
     </div>
   )

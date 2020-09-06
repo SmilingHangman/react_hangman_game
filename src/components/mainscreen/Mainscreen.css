@@ -106,3 +106,7 @@
 u {
   font-size: 18px;
 }
+.win-lose-message {
+  height: 20px;
+  margin-bottom: 10px;
+}
