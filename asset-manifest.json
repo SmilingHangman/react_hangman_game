@@ -1,0 +1,33 @@
+{
+  "files": {
+    "main.css": "/react_hangman_game/static/css/main.50b41248.chunk.css",
+    "main.js": "/react_hangman_game/static/js/main.b639907a.chunk.js",
+    "main.js.map": "/react_hangman_game/static/js/main.b639907a.chunk.js.map",
+    "runtime-main.js": "/react_hangman_game/static/js/runtime-main.47bd2fac.js",
+    "runtime-main.js.map": "/react_hangman_game/static/js/runtime-main.47bd2fac.js.map",
+    "static/css/2.f3cffc9e.chunk.css": "/react_hangman_game/static/css/2.f3cffc9e.chunk.css",
+    "static/js/2.f541e5ff.chunk.js": "/react_hangman_game/static/js/2.f541e5ff.chunk.js",
+    "static/js/2.f541e5ff.chunk.js.map": "/react_hangman_game/static/js/2.f541e5ff.chunk.js.map",
+    "index.html": "/react_hangman_game/index.html",
+    "precache-manifest.67feca7a16408a31da446da8273d4a4a.js": "/react_hangman_game/precache-manifest.67feca7a16408a31da446da8273d4a4a.js",
+    "service-worker.js": "/react_hangman_game/service-worker.js",
+    "static/css/2.f3cffc9e.chunk.css.map": "/react_hangman_game/static/css/2.f3cffc9e.chunk.css.map",
+    "static/css/main.50b41248.chunk.css.map": "/react_hangman_game/static/css/main.50b41248.chunk.css.map",
+    "static/js/2.f541e5ff.chunk.js.LICENSE.txt": "/react_hangman_game/static/js/2.f541e5ff.chunk.js.LICENSE.txt",
+    "static/media/dedface.svg": "/react_hangman_game/static/media/dedface.0fce98ba.svg",
+    "static/media/Mainscreen.css": "/react_hangman_game/static/media/gallows.e8d2cbec.png",
+    "static/media/hangmans_knot.svg": "/react_hangman_game/static/media/hangmans_knot.2e848aff.svg",
+    "static/media/neutralface.svg": "/react_hangman_game/static/media/neutralface.e90b4c45.svg",
+    "static/media/prededface.svg": "/react_hangman_game/static/media/prededface.5564f630.svg",
+    "static/media/sadface.svg": "/react_hangman_game/static/media/sadface.75ce344b.svg",
+    "static/media/screamingface.svg": "/react_hangman_game/static/media/screamingface.57eb1cd1.svg",
+    "static/media/tearface.svg": "/react_hangman_game/static/media/tearface.ca499cc3.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.47bd2fac.js",
+    "static/css/2.f3cffc9e.chunk.css",
+    "static/js/2.f541e5ff.chunk.js",
+    "static/css/main.50b41248.chunk.css",
+    "static/js/main.b639907a.chunk.js"
+  ]
+}
